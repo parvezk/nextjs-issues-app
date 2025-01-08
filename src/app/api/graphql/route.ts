@@ -72,7 +72,7 @@ const schema = buildSchema(typeDefs);
 
 export async function POST(req: NextRequest) {
   const { query, variables } = await req.json();
-  console.log("POST API hit", query, variables);
+  console.log("POST API hit");
   const response = await graphql({
     schema,
     source: query,
@@ -80,5 +80,10 @@ export async function POST(req: NextRequest) {
     variableValues: variables,
   });
 
-  return NextResponse.json(response);
+  const headers = new Headers();
+  headers.set("Access-Control-Allow-Origin", "*");
+  headers.set("Access-Control-Allow-Methods", "POST");
+  headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+  return NextResponse.json(response, { headers });
 }
