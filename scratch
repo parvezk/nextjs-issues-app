@@ -1,0 +1,16 @@
+migration needed to rename column text to status in turso DB
+
+4. (Optional) Migrate Database to Rename Column
+If you want to rename the column in the database to status (recommended for clarity), you can do this with a database migration:
+
+sql
+Copy code
+ALTER TABLE issues RENAME COLUMN text TO status;
+Then, revert the column name in schema.ts:
+
+typescript
+Copy code
+status: text('status', { enum: ['backlog', 'todo', 'inprogress', 'done'] }) // Revert to "status"
+  .default('backlog')
+  .notNull(),
+This ensures consistency between the database and schema.

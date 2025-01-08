@@ -42,6 +42,7 @@ const resolvers = {
   updateIssueStatus: async ({ id, status }: { id: string; status: string }) => {
     const [updatedIssue] = await db
       .update(issues)
+      //@ts-ignore
       .set({ status })
       .where(eq(issues.id, id))
       .returning();
