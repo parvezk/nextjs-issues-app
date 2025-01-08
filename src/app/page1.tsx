@@ -30,40 +30,17 @@ const HomePage = () => {
     {}
   );
 
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data, fetching, error }, reexecuteIssuesQuery] = useQuery({
     query: ISSUES_QUERY,
     variables: { email: "admin@admin.com" },
   });
 
   const [, updateIssueStatus] = useMutation(UPDATE_ISSUE_STATUS_MUTATION);
 
-  const handleStatusChange = (issueId: string, newStatus: string) => {
-    updateIssueStatus(
-      { id: issueId, status: newStatus },
-      {
-        // Optimistically update the cache without refetching
-        update: (cache, mutationResult) => {
-          if (!mutationResult.data) return;
-
-          const currentData = cache.readQuery({
-            query: ISSUES_QUERY,
-            variables: { email: "admin@admin.com" },
-          });
-
-          if (currentData) {
-            const updatedIssues = currentData.issuesForUser.map((issue: any) =>
-              issue.id === issueId ? { ...issue, status: newStatus } : issue
-            );
-
-            cache.writeQuery({
-              query: ISSUES_QUERY,
-              variables: { email: "admin@admin.com" },
-              data: { issuesForUser: updatedIssues },
-            });
-          }
-        },
-      }
-    );
+  const handleStatusChange = async (issueId: string, newStatus: string) => {
+    setSelectedStatus((prev) => ({ ...prev, [issueId]: newStatus }));
+    await updateIssueStatus({ id: issueId, status: newStatus });
+    reexecuteIssuesQuery(); // Refresh the issues after updating
   };
 
   if (fetching) return <p>Loading...</p>;
