@@ -1,6 +1,12 @@
 import { randomUUID } from "crypto";
 import { relations, sql } from "drizzle-orm";
 import { sqliteTable, text } from "drizzle-orm/sqlite-core";
+/**
+ * Defines the GraphQL schema, including queries, and mutations.
+ * Contains type definitions and resolvers
+ * Maps GraphQL operations to database operations
+ * @returns
+ */
 
 const id = () =>
   text("id")

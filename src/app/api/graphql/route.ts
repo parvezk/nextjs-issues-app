@@ -3,9 +3,19 @@ import { buildSchema, graphql } from "graphql";
 import { db } from "../../../lib/db";
 import { users, issues } from "../../../lib/schema";
 import { eq } from "drizzle-orm";
+/**
+ * defines the API route for handling GraphQL requests.
+ * processes incoming GraphQL queries/mutations and interacts with the SQLite DB using Drizzle ORM
+ */
 
-// Extend the typeDefs with a mutation for updating issue status
+// Define the GraphQL schema
 const typeDefs = `
+  type User {
+      id: String!
+      email: String!
+      createdAt: String!
+    }
+
   type Issue {
     id: String!
     name: String!
@@ -16,6 +26,7 @@ const typeDefs = `
   }
 
   type Query {
+    users: [User!]!
     issuesForUser(email: String!): [Issue!]!
   }
 
@@ -24,7 +35,6 @@ const typeDefs = `
   }
 `;
 
-// Extend the resolvers with a mutation for updating issue status
 const resolvers = {
   issuesForUser: async ({ email }: { email: string }) => {
     const user = await db
@@ -50,6 +60,10 @@ const resolvers = {
       throw new Error("Failed to update issue status");
     }
     return updatedIssue;
+  },
+
+  users: async () => {
+    return await db.select().from(users); // Fetch users from the database
   },
 };
 

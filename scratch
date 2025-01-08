@@ -14,3 +14,20 @@ status: text('status', { enum: ['backlog', 'todo', 'inprogress', 'done'] }) // R
   .default('backlog')
   .notNull(),
 This ensures consistency between the database and schema.
+===
+
+d. CORS Issues
+If the GraphQL API is being blocked due to cross-origin requests:
+
+Add a CORS middleware to your API route:
+typescript
+Copy code
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function middleware(req: NextRequest) {
+  const res = NextResponse.next();
+  res.headers.set('Access-Control-Allow-Origin', '*');
+  res.headers.set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+  res.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  return res;
+}

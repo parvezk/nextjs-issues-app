@@ -1,8 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Issues App
+
+## Tech Stack
+
+- **Frontend**: Next.js
+- **API Layer**: GraphQL
+- **Data Fetching**: URQL Client
+- **Database**: TursoDB/SQLite
+- **ORM**: Drizzle
+- **Language**: TypeScript
+
+## Project Structure
+
+Key components and their roles:
+
+### Frontend Layer
+
+- `src/app/page.tsx`: Main page component for UI rendering
+- `src/lib/urqlClient.ts`: URQL client configuration for GraphQL operations
+
+### API Layer
+
+- `src/app/api/graphql/route.ts`: GraphQL API endpoint handler
+
+### Schema Layer
+
+- `src/lib/schema.ts`: GraphQL schema definitions and resolvers
+
+### Database Layer
+
+- `src/lib/db.ts`: Database configuration and Drizzle ORM setup
+
+## Data Flow
+
+1. User interaction in UI (page.tsx)
+2. URQL client sends GraphQL request
+3. GraphQL route processes request
+4. Schema handles operation
+5. Drizzle ORM executes database queries
+6. Data returns through the same path
+
+## Key Features
+
+- Type-safe end-to-end development with TypeScript
+- Modern data fetching with GraphQL
+- Efficient database access via Drizzle ORM
+- Server-side rendering with Next.js
+- Built-in API routing
+- Efficient caching with URQL
 
 ## Getting Started
-
-First, run the development server:
 
 ```bash
 npm run dev
@@ -16,21 +62,18 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Development
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+[Add development guidelines here]
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+[Add deployment instructions here]
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+[Add contribution guidelines here]
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[Add license information here]
