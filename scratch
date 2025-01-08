@@ -1,3 +1,20 @@
+
+Connect Drizzle Studio
+Run `db:studio` "drizzle-kit studio"
+Access https://local.drizzle.studio
+
+
+Whenever you make changes to the schema, run db:generate:
+npm run db:generate
+Now apply these changes to the database with db:migrate:
+npm run db:migrate
+
+TOOD:
+
+Ensure the database is accessible from AWS Amplify.
+
+
+===
 migration needed to rename column text to status in turso DB
 
 4. (Optional) Migrate Database to Rename Column

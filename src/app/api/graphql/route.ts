@@ -71,19 +71,27 @@ const resolvers = {
 const schema = buildSchema(typeDefs);
 
 export async function POST(req: NextRequest) {
-  const { query, variables } = await req.json();
-  console.log("POST API hit");
-  const response = await graphql({
-    schema,
-    source: query,
-    rootValue: resolvers,
-    variableValues: variables,
-  });
+  try {
+    const { query, variables } = await req.json();
+    console.log("POST API hit");
+    const response = await graphql({
+      schema,
+      source: query,
+      rootValue: resolvers,
+      variableValues: variables,
+    });
 
-  const headers = new Headers();
-  headers.set("Access-Control-Allow-Origin", "*");
-  headers.set("Access-Control-Allow-Methods", "POST");
-  headers.set("Access-Control-Allow-Headers", "Content-Type");
+    const headers = new Headers();
+    headers.set("Access-Control-Allow-Origin", "*");
+    headers.set("Access-Control-Allow-Methods", "POST");
+    headers.set("Access-Control-Allow-Headers", "Content-Type");
 
-  return NextResponse.json(response, { headers });
+    return NextResponse.json(response, { headers });
+  } catch (error) {
+    console.error("API Error:", error); // Log error details
+    return NextResponse.json(
+      { errors: [{ message: error.message }] },
+      { status: 500 }
+    );
+  }
 }
